@@ -29,7 +29,7 @@ public class SimpleChat extends JFrame implements ISimpleChat {
         init();
         int choice = choices();
         if (choice == 0) {
-            setTitle("ОКНО СЕРВЕР");
+            setTitle("СЕРВЕР");
             new Thread(() -> {
                 try {
                     server();
@@ -38,7 +38,7 @@ public class SimpleChat extends JFrame implements ISimpleChat {
                 }
             }).start();
         } else {
-            setTitle("ОКНО КЛИЕНТ");
+            setTitle("КЛИЕНТ");
             new Thread(() -> {
                 try {
                     client();
