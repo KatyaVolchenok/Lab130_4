@@ -105,7 +105,8 @@ public class SimpleChat extends JFrame implements ISimpleChat {
     private int choices() {
         Object[] choiceBut = {"сервер", "клиент"};
         choice = JOptionPane.showOptionDialog(this,
-                "Выберите окно: ",
+                new String[] {"Добро пожаловать!", 
+                                            "Выберите:"},
                 null, JOptionPane.YES_NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, choiceBut, null);
         return choice;
