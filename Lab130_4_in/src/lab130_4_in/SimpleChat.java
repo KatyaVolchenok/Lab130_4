@@ -188,12 +188,6 @@ public class SimpleChat extends JFrame implements ISimpleChat {
         try (Scanner scanner = new Scanner(socket.getInputStream())) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                if (line.equals("выход")) {
-                    JOptionPane.showMessageDialog(this, "отключение");
-                    dispose();
-                    System.exit(0);
-                    close();
-                }
                 outText.append(socket.getInetAddress() + ": " + socket.getPort() + " --> " + line + "\n");
             }
         } catch (IOException e) {
@@ -206,12 +200,6 @@ public class SimpleChat extends JFrame implements ISimpleChat {
         try {
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
             printWriter.println(message);
-            if (message.equals("выход")) {
-                JOptionPane.showMessageDialog(this, "отключение");
-                dispose();
-                System.exit(0);
-                close();
-            }
             outText.append("Ваше сообщение: " + message + "\n");
             inText.setText(null);
         } catch (IOException e) {
