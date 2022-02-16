@@ -105,7 +105,8 @@ public class SimpleChat extends JFrame implements ISimpleChat {
     private int choices() {
         Object[] choiceBut = {"сервер", "клиент"};
         choice = JOptionPane.showOptionDialog(this,
-                "Выберите окно: ",
+                new String[] {"Добро пожаловать!", 
+                                            "Выберите:"},
                 null, JOptionPane.YES_NO_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, choiceBut, null);
         return choice;
@@ -120,7 +121,7 @@ public class SimpleChat extends JFrame implements ISimpleChat {
                 System.exit(0);
             }
             if (adress.trim().equals("")) {
-                JOptionPane.showMessageDialog(this, "Ошибка: пустая строка");
+                JOptionPane.showMessageDialog(this, "Ошибка: пустая строка!");
                 continue;
             }
             break;
@@ -139,13 +140,13 @@ public class SimpleChat extends JFrame implements ISimpleChat {
                 System.exit(0);
             }
             if (portString.trim().equals("")) {
-                JOptionPane.showMessageDialog(this, "Ошибка: строка пуста");
+                JOptionPane.showMessageDialog(this, "Ошибка: пустая строка!");
                 continue;
             }
             try {
                 portInt = Integer.parseInt(portString);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Ошибка: неправильно введен порт");
+                JOptionPane.showMessageDialog(this, "Ошибка: неправильно введен номер порта!");
                 continue;
             }
             break;
@@ -162,10 +163,10 @@ public class SimpleChat extends JFrame implements ISimpleChat {
             System.out.println("клиент подключен");
             getMessage();
         } catch (IOException e) {
-            JOptionPane.showInputDialog(null, 
+            JOptionPane.showInputDialog(this, 
                               new String[] {"Неверно введен адрес и порт!", 
                                             "Повторите адрес и порт:"}, null,
-                                            JOptionPane.YES_NO_OPTION);
+                                            JOptionPane.YES_NO_CANCEL_OPTION);
             client();
         }
     }
@@ -187,12 +188,6 @@ public class SimpleChat extends JFrame implements ISimpleChat {
         try (Scanner scanner = new Scanner(socket.getInputStream())) {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                if (line.equals("выход")) {
-                    JOptionPane.showMessageDialog(this, "отключение");
-                    dispose();
-                    System.exit(0);
-                    close();
-                }
                 outText.append(socket.getInetAddress() + ": " + socket.getPort() + " --> " + line + "\n");
             }
         } catch (IOException e) {
@@ -205,12 +200,6 @@ public class SimpleChat extends JFrame implements ISimpleChat {
         try {
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
             printWriter.println(message);
-            if (message.equals("выход")) {
-                JOptionPane.showMessageDialog(this, "отключение");
-                dispose();
-                System.exit(0);
-                close();
-            }
             outText.append("Ваше сообщение: " + message + "\n");
             inText.setText(null);
         } catch (IOException e) {
